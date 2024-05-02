@@ -2,6 +2,7 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { PlusIcon } from '@heroicons/react/20/solid'
+import logo from '/assets/logo.png'
 
 
 const user = {
@@ -51,7 +52,7 @@ export default function Navbar() {
                         <a href='/'>
                             <img
                                 className="h-8 w-auto"
-                                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                                src={logo}
                                 alt="Your Company"
                             />
                         </a>
