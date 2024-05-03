@@ -8,7 +8,7 @@ const features = [
     { id: 4, name: 'Home Page', state: true },
     { id: 5, name: 'NotFound Page', state: true },
     { id: 6, name: 'Login Page', state: true },
-    { id: 7, name: 'Register Page', state: false },
+    { id: 7, name: 'Register Page', state: true },
     { id: 8, name: 'Supabase Authentication and Registration Logic', state: false },
     { id: 9, name: 'LocalStorage Custom Hook', state: false },
     { id: 10, name: 'More coming soon... 🚀', state: false },

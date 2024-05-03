@@ -9,7 +9,7 @@ The Frontend Template is created to avoid having to configure all libraries, bas
 - [x] Home Page
 - [x] Not Found Page
 - [x] Login Page
-- [ ] Registration Page
+- [x] Registration Page
 - [ ] Supabase Authentication and Registration Logic
 - [ ] Local Storage Custom Hook
 - [ ] More coming soon... 🚀
