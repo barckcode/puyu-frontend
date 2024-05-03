@@ -12,9 +12,9 @@ const user = {
 }
 const navigation = [
     { name: 'Home', href: '/', current: true },
-    { name: 'Dashboard', href: '#', current: false },
-    { name: 'Projects', href: '#', current: false },
-    { name: 'Calendar', href: '#', current: false },
+    { name: 'NotFound', href: '/notfound', current: false },
+    { name: 'Login', href: '/login', current: false },
+    { name: 'Registration', href: '/registration', current: false },
 ]
 const userNavigation = [
     { name: 'Your Profile', href: '#' },
