@@ -4,7 +4,7 @@ import logo from '/assets/logo.png'
 import Home from '../Home'
 import NotFound from '../NotFound'
 import Login from '../Login'
-import Sidebar from '../../Components/Sidebar'
+import Sidebar from '../../Components/Navigation/Sidebar'
 
 
 const AppRoutes = () => {

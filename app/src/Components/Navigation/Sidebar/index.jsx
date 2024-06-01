@@ -3,10 +3,12 @@ import { Dialog, Transition } from '@headlessui/react'
 import {
     Bars3Icon,
     XMarkIcon,
+    Cog6ToothIcon,
     HomeIcon,
 } from '@heroicons/react/24/outline'
 import { useLocation, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Project from '../Project';
 
 
 function classNames(...classes) {
@@ -75,6 +77,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, helmcode_logo }) 
 											alt="Helmcode Company"
 										/>
 									</div>
+									<Project />
 									<nav className="flex flex-1 flex-col">
 										<ul role="list" className="flex flex-1 flex-col gap-y-7">
 											<li>
@@ -98,6 +101,15 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, helmcode_logo }) 
 													))}
 												</ul>
 											</li>
+                                            <li className="mt-auto">
+                                                <Link
+                                                    to="#"
+                                                    className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
+                                                >
+                                                    <Cog6ToothIcon className="h-6 w-6 shrink-0" aria-hidden="true" />
+                                                    Settings
+                                                </Link>
+                                            </li>
 										</ul>
 									</nav>
 								</div>
@@ -116,8 +128,9 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, helmcode_logo }) 
 							alt="Your Company"
 						/>
 					</div>
+					<Project />
 					<nav className="flex flex-1 flex-col">
-						<ul role="list" className="flex flex-1 flex-col gap-y-7">
+						<ul role="list" className="flex flex-1 flex-col gap-y-7 pb-4">
 							<li>
 								<ul role="list" className="-mx-2 space-y-1">
 									{navigation.map((item) => (
@@ -138,9 +151,15 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, helmcode_logo }) 
 									))}
 								</ul>
 							</li>
-							<li className="-mx-6 mt-auto">
-								<p className="px-6 py-3 text-xs font-semibold leading-6 text-white" aria-hidden="true"> From the Canary Islands to the 🌎</p>
-							</li>
+                            <li className="mt-auto">
+                                <Link
+                                    to="#"
+                                    className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
+                                >
+                                    <Cog6ToothIcon className="h-6 w-6 shrink-0" aria-hidden="true" />
+                                    Settings
+                                </Link>
+                            </li>
 						</ul>
 					</nav>
 				</div>
