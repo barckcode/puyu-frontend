@@ -88,7 +88,7 @@ export default function Login() {
     }
     else {
         return (
-            <App />
+            <App session={session} supabase={supabase} setSession={setSession} />
         )
     }
 }
