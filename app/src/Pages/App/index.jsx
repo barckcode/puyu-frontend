@@ -101,7 +101,7 @@ export default function App({ session, supabase, setSession }) {
 					</div>
 				) : projects.length > 0 ? (
                 <>
-                    <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} helmcode_logo={logo} />
+                    <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} helmcodeLogo={logo} projects={projects} backendUrl={BACKEND_URL} apiToken={session.access_token}/>
                     <main className="py-10 lg:pl-72">
                         <div className="px-4 sm:px-6 lg:px-8">
 							<AppRoutes session={session} />

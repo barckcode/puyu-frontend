@@ -16,7 +16,7 @@ function classNames(...classes) {
 }
 
 
-export default function Sidebar({ sidebarOpen, setSidebarOpen, helmcode_logo }) {
+export default function Sidebar({ sidebarOpen, setSidebarOpen, helmcodeLogo, projects, backendUrl, apiToken }) {
     const location = useLocation()
 
     const navigation = [
@@ -73,11 +73,11 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, helmcode_logo }) 
 									<div className="flex h-16 shrink-0 items-center">
 										<img
 											className="h-20 w-20"
-											src={helmcode_logo}
+											src={helmcodeLogo}
 											alt="Helmcode Company"
 										/>
 									</div>
-									<Project />
+									<Project projects={projects} backendUrl={backendUrl} apiToken={apiToken} />
 									<nav className="flex flex-1 flex-col">
 										<ul role="list" className="flex flex-1 flex-col gap-y-7">
 											<li>
@@ -124,11 +124,11 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, helmcode_logo }) 
 					<div className="flex h-16 shrink-0 items-center">
 						<img
 							className="h-24 w-24"
-							src={helmcode_logo}
+							src={helmcodeLogo}
 							alt="Your Company"
 						/>
 					</div>
-					<Project />
+					<Project projects={projects} backendUrl={backendUrl} apiToken={apiToken} />
 					<nav className="flex flex-1 flex-col">
 						<ul role="list" className="flex flex-1 flex-col gap-y-7 pb-4">
 							<li>
@@ -179,5 +179,8 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, helmcode_logo }) 
 Sidebar.propTypes = {
     sidebarOpen: PropTypes.bool.isRequired,
     setSidebarOpen: PropTypes.func.isRequired,
-    helmcode_logo: PropTypes.string.isRequired,
+    helmcodeLogo: PropTypes.string.isRequired,
+	projects: PropTypes.array.isRequired,
+	backendUrl: PropTypes.string.isRequired,
+	apiToken: PropTypes.string.isRequired,
 };
