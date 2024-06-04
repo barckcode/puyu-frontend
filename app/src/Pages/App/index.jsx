@@ -6,6 +6,7 @@ import logo from '/assets/logo.png'
 import Home from '../Home'
 import NotFound from '../NotFound'
 import Login from '../Login'
+import Servers from '../Servers'
 import Sidebar from '../../Components/Navigation/Sidebar'
 import Spinner from "../../Components/Core/Spinner";
 
@@ -13,9 +14,10 @@ import Spinner from "../../Components/Core/Spinner";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
 
-const AppRoutes = ({ session }) => {
+const AppRoutes = ({ session, backendUrl }) => {
 	let routes = useRoutes([
 		{ path: '/', element: <Home session={session} /> },
+		{ path: '/servers', element: <Servers session={session} backendUrl={backendUrl} /> },
 		{ path: '/login', element: <Login /> },
 		{ path: '/*', element: <NotFound /> },
 	])
@@ -25,6 +27,7 @@ const AppRoutes = ({ session }) => {
 
 AppRoutes.propTypes = {
 	session: PropTypes.object,
+	backendUrl: PropTypes.string,
 }
 
 
@@ -104,12 +107,12 @@ export default function App({ session, supabase, setSession }) {
                     <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} helmcodeLogo={logo} projects={projects} backendUrl={BACKEND_URL} apiToken={session.access_token}/>
                     <main className="py-10 lg:pl-72">
                         <div className="px-4 sm:px-6 lg:px-8">
-							<AppRoutes session={session} />
-                            {projects.map(project => (
-                                <div key={project.id}>
-                                    <p>Proyecto ID: {project.project_id}</p>
-                                </div>
-                            ))}
+							<AppRoutes session={session} backendUrl={BACKEND_URL} />
+							{/* {projects.map(project => (
+								<div key={project.id}>
+									<p>Proyecto ID: {project.project_id}</p>
+								</div>
+							))} */}
                         </div>
                     </main>
                 </>

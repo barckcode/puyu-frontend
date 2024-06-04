@@ -5,6 +5,7 @@ import {
     XMarkIcon,
     Cog6ToothIcon,
     HomeIcon,
+	ServerStackIcon
 } from '@heroicons/react/24/outline'
 import { useLocation, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -20,7 +21,8 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, helmcodeLogo, pro
     const location = useLocation()
 
     const navigation = [
-        { name: 'Home', href: '/', icon: HomeIcon, current: location.pathname === '/' }
+        { name: 'Home', href: '/', icon: HomeIcon, current: location.pathname === '/' },
+        { name: 'Servers', href: '/servers', icon: ServerStackIcon, current: location.pathname === '/servers' },
     ]
 
     const currentPage = navigation.find(item => item.href === location.pathname);
