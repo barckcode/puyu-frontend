@@ -10,6 +10,7 @@ export default function CloudServices({ backendUrl, session }) {
     const [regions, setRegions] = useState([]);
     const [selectedRegion, setSelectedRegion] = useState(null);
     const [distributions, setDistributions] = useState([]);
+    const [instanceTypes, setInstanceTypes] = useState([]);
 
     useEffect(() => {
         const fetchCloudServices = async () => {
@@ -71,6 +72,26 @@ export default function CloudServices({ backendUrl, session }) {
         }
     }, [selectedRegion, backendUrl, session]);
 
+    useEffect(() => {
+        if (selectedCloud) {
+            const fetchInstanceTypes = async () => {
+                try {
+                    const response = await axios.get(`${backendUrl}/cloud/${selectedCloud.id}/instance_types`, {
+                        headers: {
+                            Authorization: `Bearer ${session.access_token}`
+                        }
+                    });
+                    setInstanceTypes(response.data);
+                } catch (error) {
+                    console.error('Error fetching instance types:', error);
+                    setRegions([]);
+                }
+            };
+
+            fetchInstanceTypes();
+        }
+    }, [selectedCloud, backendUrl, session]);
+
     return (
         <>
             <h2 className="text-center p-8 text-2xl font-bold"> ☁️ Cloud Providers</h2>
@@ -90,7 +111,15 @@ export default function CloudServices({ backendUrl, session }) {
             </div>
             {selectedCloud && regions.length > 0 ? (
                 <form className="mt-8 p-8 flex flex-col items-center justify-center text-indigo-900">
-                    <label htmlFor="region" className="p-2 text-center text-indigo-50">Region</label>
+                    <label htmlFor="server_name" className="p-2 text-center text-indigo-50">Server Name</label>
+                    <input
+                        className="w-1/2 p-2 border border-gray-300 rounded-md text-center"
+                        type="text"
+                        name="server_name"
+                        id="server_name"
+                        placeholder="Test"
+                    />
+                    <label htmlFor="region" className="mt-4 p-2 text-center text-indigo-50">Region</label>
                     <select
                         className="w-1/2 p-2 border border-gray-300 rounded-md text-center"
                         onChange={(e) => setSelectedRegion(e.target.value)}
@@ -104,6 +133,12 @@ export default function CloudServices({ backendUrl, session }) {
                     <select className="w-1/2 p-2 border border-gray-300 rounded-md text-center">
                         {distributions.map(distribution => (
                             <option key={distribution.id} value={distribution.id}>{distribution.distribution} {distribution.version}</option>
+                        ))}
+                    </select>
+                    <label htmlFor="instance_type" className="mt-4 p-2 text-center text-indigo-50">Instance Type</label>
+                    <select className="w-1/2 p-2 border border-gray-300 rounded-md text-center">
+                        {instanceTypes.map(instanceType => (
+                            <option key={instanceType.id} value={instanceType.id}>{instanceType.cpu} / {instanceType.memory}</option>
                         ))}
                     </select>
                 </form>
