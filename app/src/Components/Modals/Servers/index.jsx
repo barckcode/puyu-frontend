@@ -3,7 +3,15 @@ import PropTypes from "prop-types";
 import { Transition, Dialog } from "@headlessui/react";
 
 
-export default function ServersModal({ modalIsOpen, closeModal, selectedCloud, selectedRegion, selectedDistribution, selectedInstanceType, selectedStorage, serverName }) {
+export default function ServersModal({ modalIsOpen, closeModal, selectedCloud, selectedRegion, selectedDistribution, selectedInstanceType, selectedStorage, serverName, selectedProject }) {
+// Frontend data
+// selectedRegion.region_cloud_id
+// selectedDistribution.ami_aws_id
+// serverName
+// selectedInstanceType.instance_type_cloud_id
+// selectedStorage.size
+// selectedProject.project_id
+
     return (
         <Transition show={modalIsOpen} as={Fragment}>
             <Dialog as="div" className="relative z-10 text-indigo-900" onClose={closeModal}>
@@ -93,5 +101,6 @@ ServersModal.propTypes = {
     selectedDistribution: PropTypes.object,
     selectedInstanceType: PropTypes.object,
     selectedStorage: PropTypes.object,
-    serverName: PropTypes.string.isRequired
+    serverName: PropTypes.string.isRequired,
+    selectedProject: PropTypes.object
 }

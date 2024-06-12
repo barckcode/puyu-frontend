@@ -17,7 +17,7 @@ function classNames(...classes) {
 }
 
 
-export default function Sidebar({ sidebarOpen, setSidebarOpen, helmcodeLogo, projects, backendUrl, apiToken }) {
+export default function Sidebar({ sidebarOpen, setSidebarOpen, helmcodeLogo, projects, backendUrl, apiToken, setSelectedProject }) {
     const location = useLocation()
 
     const navigation = [
@@ -79,7 +79,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, helmcodeLogo, pro
 											alt="Helmcode Company"
 										/>
 									</div>
-									<Project projects={projects} backendUrl={backendUrl} apiToken={apiToken} />
+									<Project projects={projects} backendUrl={backendUrl} apiToken={apiToken} setSelectedProject={setSelectedProject} />
 									<nav className="flex flex-1 flex-col">
 										<ul role="list" className="flex flex-1 flex-col gap-y-7">
 											<li>
@@ -185,4 +185,5 @@ Sidebar.propTypes = {
 	projects: PropTypes.array.isRequired,
 	backendUrl: PropTypes.string.isRequired,
 	apiToken: PropTypes.string.isRequired,
+	setSelectedProject: PropTypes.func.isRequired,
 };

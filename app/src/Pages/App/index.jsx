@@ -14,10 +14,10 @@ import Spinner from "../../Components/Core/Spinner";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
 
-const AppRoutes = ({ session, backendUrl }) => {
+const AppRoutes = ({ session, backendUrl, selectedProject }) => {
 	let routes = useRoutes([
 		{ path: '/', element: <Home session={session} /> },
-		{ path: '/servers', element: <Servers session={session} backendUrl={backendUrl} /> },
+		{ path: '/servers', element: <Servers session={session} backendUrl={backendUrl} selectedProject={selectedProject} /> },
 		{ path: '/login', element: <Login /> },
 		{ path: '/*', element: <NotFound /> },
 	])
@@ -28,6 +28,7 @@ const AppRoutes = ({ session, backendUrl }) => {
 AppRoutes.propTypes = {
 	session: PropTypes.object,
 	backendUrl: PropTypes.string,
+	selectedProject: PropTypes.object,
 }
 
 
@@ -35,6 +36,7 @@ export default function App({ session, supabase, setSession }) {
 	const [sidebarOpen, setSidebarOpen] = useState(false)
 	const [projects, setProjects] = useState([]);
 	const [projectName, setProjectName] = useState('');
+	const [selectedProject, setSelectedProject] = useState(null);
 	const [error, setError] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -50,6 +52,7 @@ export default function App({ session, supabase, setSession }) {
 			});
 			if (response.status === 200) {
 				setProjects(response.data);
+				setSelectedProject(response.data[0]);
 			}
 		} catch (error) {
 			if (error.response && error.response.status === 401) {
@@ -104,15 +107,10 @@ export default function App({ session, supabase, setSession }) {
 					</div>
 				) : projects.length > 0 ? (
                 <>
-                    <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} helmcodeLogo={logo} projects={projects} backendUrl={BACKEND_URL} apiToken={session.access_token}/>
+                    <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} helmcodeLogo={logo} projects={projects} backendUrl={BACKEND_URL} apiToken={session.access_token} setSelectedProject={setSelectedProject} />
                     <main className="py-10 lg:pl-72">
                         <div className="px-4 sm:px-6 lg:px-8">
-							<AppRoutes session={session} backendUrl={BACKEND_URL} />
-							{/* {projects.map(project => (
-								<div key={project.id}>
-									<p>Proyecto ID: {project.project_id}</p>
-								</div>
-							))} */}
+							<AppRoutes session={session} backendUrl={BACKEND_URL} selectedProject={selectedProject} />
                         </div>
                     </main>
                 </>

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import { FaAws } from 'react-icons/fa';
 import { SiOvh } from 'react-icons/si';
@@ -8,7 +7,7 @@ import { getAmis } from '../../services/api/region';
 import FormServers from '../../Components/Forms/Servers';
 import ServersModal from '../../Components/Modals/Servers';
 
-export default function CloudServices({ backendUrl, session }) {
+export default function CloudServices({ backendUrl, session, selectedProject }) {
     const [cloudServices, setCloudServices] = useState([]);
     const [selectedCloud, setSelectedCloud] = useState(null);
     const [serverName, setServerName] = useState('');
@@ -152,6 +151,7 @@ export default function CloudServices({ backendUrl, session }) {
                 selectedInstanceType={selectedInstanceType}
                 selectedStorage={selectedStorage}
                 serverName={serverName}
+                selectedProject={selectedProject}
             />
         </>
     );
@@ -160,4 +160,5 @@ export default function CloudServices({ backendUrl, session }) {
 CloudServices.propTypes = {
     backendUrl: PropTypes.string.isRequired,
     session: PropTypes.object.isRequired,
+    selectedProject: PropTypes.object.isRequired,
 };
