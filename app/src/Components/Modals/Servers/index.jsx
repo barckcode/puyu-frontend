@@ -1,16 +1,43 @@
-import { Fragment } from 'react';
+import axios from 'axios';
+import { Fragment, useState } from 'react';
 import PropTypes from "prop-types";
 import { Transition, Dialog } from "@headlessui/react";
+import Spinner from "../../Core/Spinner";
 
 
-export default function ServersModal({ modalIsOpen, closeModal, selectedCloud, selectedRegion, selectedDistribution, selectedInstanceType, selectedStorage, serverName, selectedProject }) {
-// Frontend data
-// selectedRegion.region_cloud_id
-// selectedDistribution.ami_aws_id
-// serverName
-// selectedInstanceType.instance_type_cloud_id
-// selectedStorage.size
-// selectedProject.project_id
+export default function ServersModal({ backendUrl, session, modalIsOpen, closeModal, selectedCloud, selectedRegion, selectedDistribution, selectedInstanceType, selectedStorage, serverName, selectedProject }) {
+    const [isLoading, setIsLoading] = useState(false);
+    const [serverResponse, setServerResponse] = useState(null);
+
+    const handleCreateServer = async () => {
+        setIsLoading(true);
+        const url = `${backendUrl}/aws/instance`; // Asegrate de que esta URL es correcta y completa
+        const payload = {
+            name: serverName,
+            disk_size: selectedStorage.size,
+            instance_type_cloud_id: selectedInstanceType.instance_type_cloud_id,
+            aws_ami_id: selectedDistribution.ami_aws_id,
+            region_cloud_id: selectedRegion.region_cloud_id,
+            project_id: selectedProject.project_id
+        };
+
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${session.access_token}`
+            }
+        };
+
+        try {
+            const response = await axios.post(url, payload, config);
+            console.log('Server created successfully:', response.data);
+            setServerResponse(response.data); // Guardar la respuesta en el estado
+            closeModal(); // Cierra el modal después de la creación exitosa
+        } catch (error) {
+            console.error('Error creating server:', error.response ? error.response.data : error.message);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     return (
         <Transition show={modalIsOpen} as={Fragment}>
@@ -79,11 +106,16 @@ export default function ServersModal({ modalIsOpen, closeModal, selectedCloud, s
                                     <button
                                         type="button"
                                         className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
-                                        // onClick={}
+                                        onClick={handleCreateServer}
                                     >
-                                        Create
+                                        {isLoading ? <Spinner /> : 'Create'}
                                     </button>
                                 </div>
+                                {serverResponse && (
+                                    <div>
+                                        <p>Server created successfully: {serverResponse.aws_instance_id}</p>
+                                    </div>
+                                )}
                             </Dialog.Panel>
                         </Transition.Child>
                     </div>
@@ -94,6 +126,8 @@ export default function ServersModal({ modalIsOpen, closeModal, selectedCloud, s
 }
 
 ServersModal.propTypes = {
+    backendUrl: PropTypes.string.isRequired,
+    session: PropTypes.object.isRequired,
     modalIsOpen: PropTypes.bool.isRequired,
     closeModal: PropTypes.func.isRequired,
     selectedCloud: PropTypes.object,

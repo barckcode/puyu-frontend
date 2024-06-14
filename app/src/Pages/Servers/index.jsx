@@ -7,6 +7,7 @@ import { getAmis } from '../../services/api/region';
 import FormServers from '../../Components/Forms/Servers';
 import ServersModal from '../../Components/Modals/Servers';
 
+
 export default function CloudServices({ backendUrl, session, selectedProject }) {
     const [cloudServices, setCloudServices] = useState([]);
     const [selectedCloud, setSelectedCloud] = useState(null);
@@ -143,6 +144,8 @@ export default function CloudServices({ backendUrl, session, selectedProject }) 
                 <p>This cloud provider will be added soon.</p>
             ) : null}
             <ServersModal
+                backendUrl={backendUrl}
+                session={session}
                 modalIsOpen={modalIsOpen}
                 closeModal={closeModal}
                 selectedCloud={selectedCloud}
